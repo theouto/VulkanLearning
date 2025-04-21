@@ -26,10 +26,10 @@ namespace lve
             int lookDown = GLFW_KEY_DOWN;
 		};
 
-        void moveInPlaneXZ(GLFWwindow* window, float dt, LveGameObject &gameObject);
+        void moveInPlaneXZ(GLFWwindow* window, float dt, LveGameObject &gameObject, double oMouseX, double oMouseY);
 
         KeyMappings keys{};
         float moveSpeed{ 3.f };
-        float lookSpeed{ 1.5f };
+        float lookSpeed{ 1.0f };
 	};
 }

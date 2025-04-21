@@ -5,40 +5,27 @@
 
 namespace lve
 {
-	void KeyboardMovementController::moveInPlaneXZ(GLFWwindow* window, float dt, LveGameObject& gameObject) 
+	void KeyboardMovementController::moveInPlaneXZ(GLFWwindow* window, float dt, LveGameObject& gameObject, double oMouseX, double oMouseY) 
 	{
 		glm::vec3 rotate{ 0 };
 		if (glfwGetKey(window, keys.lookRight) == GLFW_PRESS) rotate.y += 1.f;
 		if (glfwGetKey(window, keys.lookLeft) == GLFW_PRESS) rotate.y -= 1.f;
 		if (glfwGetKey(window, keys.lookUp) == GLFW_PRESS) rotate.x += 1.f;
 		if (glfwGetKey(window, keys.lookDown) == GLFW_PRESS) rotate.x -= 1.f;
+		
+		double mouseX;
+		double mouseY;
+		glfwGetCursorPos(window, &mouseX, &mouseY);
+		
+		//if I want a sensitivity field then I just multiply the result below by a passed through sensitivity value
+		float rotx = (float)(mouseY - oMouseY);
+		float roty = (float)(mouseX - oMouseX);			
 
-		//if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
-		//{
-		//	double mouseX;
-		//	double mouseY;
-		//	glfwGetCursorPos(window, &mouseX, &mouseY);
-		//
-		//	//if I want a sensitivity field then I just multiply the result below by a passed through sensitivity value
-		//	float rotx = 100.f * (float)(mouseY - 1280/2) / 1280;
-		//	float roty = 100.f * (float)(mouseX - 1280/2) / 1280;
-		//
-		//	glm::vec3 newOrientation = glm::rotate(glm::vec3{ 0.f, 0.f, -1.f }, glm::radians(-rotx), glm::normalize(glm::cross(glm::vec3{ 0.f, 0.f, -1.f }, glm::vec3{ 0.f, -1.f, 0.f })));
-		//	
-		//	if (!(glm::angle(newOrientation, glm::vec3( 0.f, -1.f, 0.f )) <= glm::radians(5.f) or
-		//		glm::angle(newOrientation, glm::vec3( 0.f, 1.f, 0.f)) <= glm::radians(5.f)))
-		//	{
-		//		rotate = newOrientation;
-		//	}
-		//	
-		//	glm::rotate(newOrientation, glm::radians(-roty), glm::vec3( 0.f, -1.f, 0.f ));
-		//
-		//	glfwSetCursorPos(window, (1280 / 2), (720 / 2));
-		//	
-		//}
+		rotate.y += roty;
+		rotate.x -= rotx;
 
 		if (glm::dot(rotate, rotate) > std::numeric_limits<float>::epsilon()) {
-			gameObject.transform.rotation += lookSpeed * dt * glm::normalize(rotate);
+			gameObject.transform.rotation += lookSpeed * dt * rotate;
 		}
 
 		gameObject.transform.rotation.x = glm::clamp(gameObject.transform.rotation.x, -1.5f, 1.5f);
