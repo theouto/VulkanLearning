@@ -1,0 +1,42 @@
+# Blender 4.4.1 MTL File: 'None'
+# www.blender.org
+
+newmtl body
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 2
+map_Kd D:/Unitydump/Selesthell/Assets/AOI/AOI_texture/body/body.png
+map_d D:/Unitydump/Selesthell/Assets/AOI/AOI_texture/body/body.png
+
+newmtl choker
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 2
+map_Kd D:/Unitydump/Selesthell/Assets/AOI/AOI_texture/choker/choker.png
+map_d D:/Unitydump/Selesthell/Assets/AOI/AOI_texture/choker/choker.png
+
+newmtl clothes
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 2
+map_Kd D:/Unitydump/Selesthell/Assets/AOI/AOI_texture/clothes/clothes.png
+map_d D:/Unitydump/Selesthell/Assets/AOI/AOI_texture/clothes/clothes.png
+
+newmtl hair
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 2
+map_Kd D:/Unitydump/Selesthell/Assets/AOI/AOI_texture/hair/hair.png
+map_d D:/Unitydump/Selesthell/Assets/AOI/AOI_texture/hair/hair.png
