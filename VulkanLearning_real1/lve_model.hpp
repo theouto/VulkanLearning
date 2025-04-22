@@ -1,6 +1,7 @@
 #pragma once
 
 #include "lve_device.hpp"
+#include "lve_buffer.hpp"
 
 #define GLM_FORCE_RADIANS
 #define GLM_FORCE_DEPTH_ZERO_TO_ONE
@@ -30,6 +31,12 @@ namespace lve
 				&& normal == other.normal && uv == other.uv; }
 		};
 
+		struct UniformBufferObject {
+			alignas(16) glm::mat4 model;
+			alignas(16) glm::mat4 view;
+			alignas(16) glm::mat4 proj;
+		};
+
 		struct Builder
 		{
 			std::vector<Vertex> vertices{};
@@ -44,16 +51,11 @@ namespace lve
 		LveModel(const LveModel&) = delete;
 		LveModel& operator=(const LveModel&) = delete;
 		
-		VkImage textureImage;
-		VkDeviceMemory textureImageMemory;
-		VkImageCreateInfo imageInfo{};
-		VkImageView textureImageView;
-		VkSampler textureSampler;
+		
 		VkDescriptorSetLayout descriptorSetLayout;
 		VkDescriptorPool descriptorPool;
 
 		std::vector<VkDescriptorSet> descriptorSets;
-		std::vector<VkBuffer> uniformBuffers;
 
 		static std::unique_ptr<LveModel> createModelFromFile(LveDevice& device, const std::string &filepath);
 
@@ -63,26 +65,14 @@ namespace lve
 	private:
 		void createVertexBuffers(const std::vector<Vertex> &vertices);
 		void createIndexBuffers(const std::vector<uint32_t>& indices);
-		void createTextureImage();
-		void createImage(uint32_t width, uint32_t height, VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage,
-			VkMemoryPropertyFlags properties, VkImage& image, VkDeviceMemory& imageMemory);
-		void transitionImageLayout(VkImage image, VkFormat format, VkImageLayout oldLayout, VkImageLayout newLayout);
-		VkImageView createImageView(VkImage image, VkFormat format);
-		void createTextureImageView();
-		void createTextureSampler();
-		void createDescriptorSetLayout();
-		void createDescriptorPool();
-		void createDescriptorSets();
 
 		LveDevice &lveDevice;
 
-		VkBuffer vertexBuffer;
-		VkDeviceMemory vertexBufferMemory;
+		std::unique_ptr<LveBuffer> vertexBuffer;
 		uint32_t vertexCount;
 		
 		bool hasIndexBuffer = false;
-		VkBuffer indexBuffer;
-		VkDeviceMemory indexBufferMemory;
+		std::unique_ptr<LveBuffer> indexBuffer;
 		uint32_t indexCount;
 	};
 }
