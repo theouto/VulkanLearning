@@ -16,16 +16,15 @@ namespace lve
 	{
 	public:
 
-		SimpleRenderSystem(LveDevice& device, VkRenderPass renderPass);
+		SimpleRenderSystem(LveDevice& device, VkRenderPass renderPass, VkDescriptorSetLayout globalSetLayout);
 		~SimpleRenderSystem();
 
 		SimpleRenderSystem(const SimpleRenderSystem&) = delete;
 		SimpleRenderSystem& operator=(const SimpleRenderSystem&) = delete;
 
-		void run();
 		void renderGameObjects(FrameInfo &frameInfo, std::vector<LveGameObject>& gameObjects);
 	private:
-		void createPipeLineLayout();
+		void createPipeLineLayout(VkDescriptorSetLayout globalSetLayout);
 		void createPipeline(VkRenderPass renderPass);
 
 		LveDevice& lveDevice;
