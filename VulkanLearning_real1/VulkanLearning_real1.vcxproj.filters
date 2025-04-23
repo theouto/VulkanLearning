@@ -16,6 +16,9 @@
     <Filter Include="shaders">
       <UniqueIdentifier>{9eeeb3ca-4a7d-41fa-947f-fa0d200f8903}</UniqueIdentifier>
     </Filter>
+    <Filter Include="systems">
+      <UniqueIdentifier>{186b5eb1-721c-491b-9b28-c2abcf1dcde8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="lve_window.cpp">
@@ -45,9 +48,6 @@
     <ClCompile Include="lve_renderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="simple_render_system.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="lve_camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -65,6 +65,12 @@
     </ClCompile>
     <ClCompile Include="lve_textures.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="systems\point_light_system.cpp">
+      <Filter>systems</Filter>
+    </ClCompile>
+    <ClCompile Include="systems\simple_render_system.cpp">
+      <Filter>systems</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -89,9 +95,6 @@
     <ClInclude Include="lve_renderer.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="simple_render_system.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="lve_camera.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -113,6 +116,12 @@
     <ClInclude Include="lve_textures.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="systems\point_light_system.hpp">
+      <Filter>systems</Filter>
+    </ClInclude>
+    <ClInclude Include="systems\simple_render_system.hpp">
+      <Filter>systems</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="compile.bat">
@@ -122,6 +131,12 @@
       <Filter>shaders</Filter>
     </None>
     <None Include="shaders\simple_shader.vert">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="shaders\point_light.frag">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="shaders\point_light.vert">
       <Filter>shaders</Filter>
     </None>
   </ItemGroup>

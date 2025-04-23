@@ -1,11 +1,11 @@
 #pragma once
 
-#include "lve_camera.hpp"
-#include "lve_pipeline.hpp"
-#include "lve_device.hpp"
-#include "lve_model.hpp"
-#include "lve_game_object.hpp"
-#include "lve_frame_info.hpp"
+#include "C:\Users\tomyo\source\repos\VulkanLearning_real1\VulkanLearning_real1\lve_camera.hpp"
+#include "C:\Users\tomyo\source\repos\VulkanLearning_real1\VulkanLearning_real1\lve_pipeline.hpp"
+#include "C:\Users\tomyo\source\repos\VulkanLearning_real1\VulkanLearning_real1\lve_device.hpp"
+#include "C:\Users\tomyo\source\repos\VulkanLearning_real1\VulkanLearning_real1\lve_model.hpp"
+#include "C:\Users\tomyo\source\repos\VulkanLearning_real1\VulkanLearning_real1\lve_game_object.hpp"
+#include "C:\Users\tomyo\source\repos\VulkanLearning_real1\VulkanLearning_real1\lve_frame_info.hpp"
 
 #include <memory>
 #include <vector>
