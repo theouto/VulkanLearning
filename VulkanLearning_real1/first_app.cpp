@@ -20,7 +20,9 @@ namespace lve
     struct GlobalUbo
     {
         glm::mat4 projectionView{ 1.f };
-        glm::vec3 lightDirection = glm::normalize(glm::vec3{ 1.f, -3.f, -1.f });
+        glm::vec4 ambientLightColor{ 1.f, 1.f, 1.f, .02f }; //RGB Intensity
+        glm::vec3 lightPosition{ -1.f };
+        alignas(16) glm::vec4 lightColor{ 1.f }; //RGB Intensity
     };
 
 
@@ -51,7 +53,7 @@ namespace lve
         }
 
         auto globalSetLayout = LveDescriptorSetLayout::Builder(lveDevice)
-            .addBinding(0, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, VK_SHADER_STAGE_VERTEX_BIT).build();
+            .addBinding(0, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, VK_SHADER_STAGE_ALL_GRAPHICS).build();
 
         std::vector<VkDescriptorSet> globalDescriptorSets(LveSwapChain::MAX_FRAMES_IN_FLIGHT);
         for (int i = 0; i < globalDescriptorSets.size(); i++)
@@ -64,6 +66,7 @@ namespace lve
         LveCamera camera{};
 
         auto viewerObject = LveGameObject::createGameObject();
+        viewerObject.transform.translation.z = -1.5f;
 
         // https://www.glfw.org/docs/3.3/input_guide.html#raw_mouse_motion <- important
         glfwSetInputMode(lveWindow.getGLFWwindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
@@ -92,7 +95,7 @@ namespace lve
             camera.setViewYXZ(viewerObject.transform.translation, viewerObject.transform.rotation);
 
             float aspect = lveRenderer.getAspectRatio();
-            camera.setPerspectiveProjection(glm::radians(50.f), aspect, 0.1f, 10.f);
+            camera.setPerspectiveProjection(glm::radians(50.f), aspect, 0.01f, 30.f);
 
 			if (auto commandBuffer = lveRenderer.beginFrame())
 			{
@@ -102,7 +105,8 @@ namespace lve
                     frameTime,
                     commandBuffer,
                     camera,
-                    globalDescriptorSets[frameIndex]
+                    globalDescriptorSets[frameIndex],
+                    gameObjects
                 };
                 //update               
                 GlobalUbo ubo{};
@@ -112,7 +116,7 @@ namespace lve
 
                 //render
 				lveRenderer.beginSwapChainRenderPass(commandBuffer);
-				simpleRenderSystem.renderGameObjects(frameInfo, gameObjects);
+				simpleRenderSystem.renderGameObjects(frameInfo);
 				lveRenderer.endSwapChainRenderPass(commandBuffer);
 				lveRenderer.endFrame();
 			}
@@ -126,23 +130,30 @@ namespace lve
         std::shared_ptr<LveModel> lveModel = LveModel::createModelFromFile(lveDevice, "models/AOI.obj");
         auto gameObj = LveGameObject::createGameObject();
         gameObj.model = lveModel;
-        gameObj.transform.translation = { .0f, .5f, 2.5f };
+        gameObj.transform.translation = { .0f, .5f, 0.f };
         gameObj.transform.scale = { .5f, -.5f, .5f };
-        gameObjects.push_back(std::move(gameObj));
+        gameObjects.emplace(gameObj.getId(), std::move(gameObj));
 
         lveModel = LveModel::createModelFromFile(lveDevice, "models/smooth_vase.obj");
         auto sVase = LveGameObject::createGameObject();
         sVase.model = lveModel;
-        sVase.transform.translation = { -.5f, .0f, 2.5f };
+        sVase.transform.translation = { -.5f, .0f, 0.f };
         sVase.transform.scale = { .5f, .5f, .5f };
-        gameObjects.push_back(std::move(sVase));
+        gameObjects.emplace(sVase.getId(), std::move(sVase));
 
         lveModel = LveModel::createModelFromFile(lveDevice, "models/flat_vase.obj");
         auto vase = LveGameObject::createGameObject();
         vase.model = lveModel;
-        vase.transform.translation = { .5f, .0f, 2.5f };
+        vase.transform.translation = { .5f, .0f, 0.f };
         vase.transform.scale = { .5f, .5f, .5f };
-        gameObjects.push_back(std::move(vase));
+        gameObjects.emplace(vase.getId(), std::move(vase));
+
+        lveModel = LveModel::createModelFromFile(lveDevice, "models/quad.obj");
+        auto quad = LveGameObject::createGameObject();
+        quad.model = lveModel;
+        quad.transform.translation = { 0.f, .5f, 0.f };
+        quad.transform.scale = { 3.f, 1.f, 3.f };
+        gameObjects.emplace(quad.getId(), std::move(quad));
 	}
 
 }
