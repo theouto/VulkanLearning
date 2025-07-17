@@ -1,4 +1,5 @@
 #version 450
+#pragma glslify: ggx = require('glsl-ggx')
 
 layout (location = 0) in vec3 fragColor;
 layout (location = 1) in vec3 fragPosWorld;

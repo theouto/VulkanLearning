@@ -300,6 +300,12 @@ void LveSwapChain::createFramebuffers() {
   }
 }
 
+void LveSwapChain::createColorResources() {
+    VkFormat colorFormat = swapChainImageFormat;
+
+   // device.createImageWithInfo();
+}
+
 void LveSwapChain::createDepthResources() {
   VkFormat depthFormat = findDepthFormat();
   swapChainDepthFormat = depthFormat;

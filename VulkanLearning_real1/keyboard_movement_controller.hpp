@@ -25,6 +25,7 @@ namespace lve
             int lookRight = GLFW_KEY_RIGHT;
             int lookUp = GLFW_KEY_UP;
             int lookDown = GLFW_KEY_DOWN;
+            int close = GLFW_KEY_ESCAPE;
 		};
 
         void moveInPlaneXZ(GLFWwindow* window, float dt, LveGameObject &gameObject, double oMouseX, double oMouseY);

@@ -55,6 +55,7 @@ class LveSwapChain {
         void createRenderPass();
         void createFramebuffers();
         void createSyncObjects();
+        void createColorResources();
         
         // Helper functions
         VkSurfaceFormatKHR chooseSwapSurfaceFormat(
@@ -75,6 +76,11 @@ class LveSwapChain {
         std::vector<VkImageView> depthImageViews;
         std::vector<VkImage> swapChainImages;
         std::vector<VkImageView> swapChainImageViews;
+
+        //for MSAA usage
+        VkImage colorImage;
+        VkDeviceMemory colorImageMemory;
+        VkImageView colorImageView;
         
         LveDevice &device;
         VkExtent2D windowExtent;

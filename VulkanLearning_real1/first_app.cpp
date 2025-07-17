@@ -94,7 +94,8 @@ namespace lve
 			if (auto commandBuffer = lveRenderer.beginFrame())
 			{
                 int frameIndex = lveRenderer.getFrameIndex();
-                FrameInfo frameInfo{
+                FrameInfo frameInfo
+                {
                     frameIndex,
                     frameTime,
                     commandBuffer,
@@ -129,11 +130,11 @@ namespace lve
 
 	void FirstApp::loadGameObjects()
 	{
-        std::shared_ptr<LveModel> lveModel = LveModel::createModelFromFile(lveDevice, "models/AOI.obj");
+        std::shared_ptr<LveModel> lveModel = LveModel::createModelFromFile(lveDevice, "models/pleasepot.obj");
         auto gameObj = LveGameObject::createGameObject();
         gameObj.model = lveModel;
         gameObj.transform.translation = { .0f, .5f, 0.f };
-        gameObj.transform.scale = { 1.f, -1.f, 1.f };
+        gameObj.transform.scale = { .25f, -.25f, .25f };
         gameObjects.emplace(gameObj.getId(), std::move(gameObj));
 
         lveModel = LveModel::createModelFromFile(lveDevice, "models/smooth_vase.obj");
@@ -163,7 +164,8 @@ namespace lve
             {.1f, 1.f, .1f},
             {1.f, 1.f, .1f},
             {.1f, 1.f, 1.f},
-            {1.f, 1.f, 1.f}  //
+            {1.f, 1.f, 1.f},
+            {.0157f, 0.824f, 0.745f}//
         };
 
         for (int i = 0; i < lightColors.size(); i++) 

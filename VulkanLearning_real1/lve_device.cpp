@@ -108,6 +108,22 @@ void LveDevice::createInstance() {
   hasGflwRequiredInstanceExtensions();
 }
 
+//MSAA max sample count, limited to 8 samples
+VkSampleCountFlagBits LveDevice::getMaxUsableSampleCount() {
+    VkPhysicalDeviceProperties physicalDeviceProperties;
+    vkGetPhysicalDeviceProperties(physicalDevice, &physicalDeviceProperties);
+
+    VkSampleCountFlags counts = physicalDeviceProperties.limits.framebufferColorSampleCounts & physicalDeviceProperties.limits.framebufferDepthSampleCounts;
+    //if (counts & VK_SAMPLE_COUNT_64_BIT) { std::cout << "MSAA samples: 64" << '\n'; return VK_SAMPLE_COUNT_64_BIT; }
+    //if (counts & VK_SAMPLE_COUNT_32_BIT) { std::cout << "MSAA samples: 32" << '\n'; return VK_SAMPLE_COUNT_32_BIT; }
+    //if (counts & VK_SAMPLE_COUNT_16_BIT) { std::cout << "MSAA samples: 16" << '\n'; return VK_SAMPLE_COUNT_16_BIT; }
+    if (counts & VK_SAMPLE_COUNT_8_BIT) { std::cout << "MSAA samples: 8" << '\n'; return VK_SAMPLE_COUNT_8_BIT; }
+    if (counts & VK_SAMPLE_COUNT_4_BIT) { std::cout << "MSAA samples: 4" << '\n'; return VK_SAMPLE_COUNT_4_BIT; }
+    if (counts & VK_SAMPLE_COUNT_2_BIT) { std::cout << "MSAA samples: 2" << '\n'; return VK_SAMPLE_COUNT_2_BIT; }
+
+    return VK_SAMPLE_COUNT_1_BIT;
+}
+
 void LveDevice::pickPhysicalDevice() {
   uint32_t deviceCount = 0;
   vkEnumeratePhysicalDevices(instance, &deviceCount, nullptr);
@@ -121,6 +137,7 @@ void LveDevice::pickPhysicalDevice() {
   for (const auto &device : devices) {
     if (isDeviceSuitable(device)) {
       physicalDevice = device;
+      msaaSamples = getMaxUsableSampleCount();
       break;
     }
   }
