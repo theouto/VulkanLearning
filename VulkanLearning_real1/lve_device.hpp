@@ -44,6 +44,11 @@ class LveDevice {
   VkSurfaceKHR surface() { return surface_; }
   VkQueue graphicsQueue() { return graphicsQueue_; }
   VkQueue presentQueue() { return presentQueue_; }
+  void property(VkPhysicalDeviceProperties& properties)
+  {
+      vkGetPhysicalDeviceProperties(physicalDevice, &properties);
+  }
+
   //VkSampleCountFlagBits getMsaaSamples() { return msaaSamples; }
   VkSampleCountFlagBits msaaSamples = VK_SAMPLE_COUNT_1_BIT;
 
@@ -72,6 +77,8 @@ class LveDevice {
       VkImage &image,
       VkDeviceMemory &imageMemory);
 
+  VkSampleCountFlagBits getMaxUsableSampleCount();
+
   VkPhysicalDeviceProperties properties;
 
  private:
@@ -91,7 +98,6 @@ class LveDevice {
   void hasGflwRequiredInstanceExtensions();
   bool checkDeviceExtensionSupport(VkPhysicalDevice device);
   SwapChainSupportDetails querySwapChainSupport(VkPhysicalDevice device);
-  VkSampleCountFlagBits getMaxUsableSampleCount();
 
   VkInstance instance;
   VkDebugUtilsMessengerEXT debugMessenger;

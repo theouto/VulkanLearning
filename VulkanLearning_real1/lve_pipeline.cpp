@@ -152,6 +152,8 @@ namespace lve
 		configInfo.rasterizationInfo.depthBiasClamp = 0.0f;           // Optional
 		configInfo.rasterizationInfo.depthBiasSlopeFactor = 0.0f;     // Optional
 
+
+		//MSAA
 		configInfo.multisampleInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_MULTISAMPLE_STATE_CREATE_INFO;
 		configInfo.multisampleInfo.sampleShadingEnable = VK_FALSE;
 		configInfo.multisampleInfo.rasterizationSamples = VK_SAMPLE_COUNT_1_BIT;
@@ -214,5 +216,14 @@ namespace lve
 		configInfo.colorBlendAttachment.srcAlphaBlendFactor = VK_BLEND_FACTOR_ONE;   
 		configInfo.colorBlendAttachment.dstAlphaBlendFactor = VK_BLEND_FACTOR_ZERO;  
 		configInfo.colorBlendAttachment.alphaBlendOp = VK_BLEND_OP_ADD;              
+	}
+
+	void LvePipeline::enableMSAA(PipelineConfigInfo& configInfo)
+	{
+		configInfo.multisampleInfo.sampleShadingEnable = VK_TRUE;
+		configInfo.multisampleInfo.rasterizationSamples = VK_SAMPLE_COUNT_8_BIT;
+
+		configInfo.multisampleInfo.alphaToCoverageEnable = VK_TRUE;
+
 	}
 }

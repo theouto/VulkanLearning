@@ -1,6 +1,8 @@
 #include "lve_descriptors.hpp"
+#include "lve_textures.hpp"
 
 // std
+#include <array>
 #include <cassert>
 #include <stdexcept>
 

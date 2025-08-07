@@ -4,8 +4,11 @@
 layout (location = 0) in vec3 fragColor;
 layout (location = 1) in vec3 fragPosWorld;
 layout (location = 2) in vec3 fragNormalWorld;
+layout (location = 3) in vec2 fragUv;
 
 layout (location = 0) out vec4 outColor;
+
+layout(binding = 1) uniform sampler2D texSampler;
 
 struct PointLight
 {
@@ -40,6 +43,7 @@ void main()
 
 	for (int i = 0; i < ubo.numLights; i++)
 	{
+		//diffuse
 		PointLight light = ubo.pointLights[i];
 		vec3 directionToLight = light.position.xyz - fragPosWorld;
 		float attenuation = 1.0/dot(directionToLight, directionToLight); //distance squared
@@ -58,5 +62,6 @@ void main()
 		specularLight += intensity * blinnTerm;
 	}
 	
-	outColor = vec4(diffuseLight * fragColor + specularLight * fragColor, 1.0);	
+	//outColor = vec4(diffuseLight * fragColor + specularLight * fragColor, 1.0);
+	outColor = vec4(diffuseLight * fragColor + specularLight * fragColor, 0.0) + texture(texSampler, fragUv);
 }

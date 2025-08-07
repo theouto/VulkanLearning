@@ -6,6 +6,7 @@
 #include "lve_game_object.hpp"
 #include "lve_renderer.hpp"
 #include "lve_descriptors.hpp"
+#include "lve_textures.hpp"
 
 #include <memory>
 #include <vector>
@@ -30,7 +31,7 @@ namespace lve
 	private:
 		void loadGameObjects();
 
-		LveWindow lveWindow{ WIDTH, HEIGHT, "WINNING" };
+		LveWindow lveWindow{ WIDTH, HEIGHT, "thengine" };
 		LveDevice lveDevice{ lveWindow };
 		LveRenderer lveRenderer{ lveWindow, lveDevice };
 

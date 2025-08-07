@@ -191,7 +191,6 @@ namespace lve
 					1.f - attrib.texcoords[2 * index.texcoord_index + 1], };
 				}
 
-				//could possibly could skip the logic check
 				if (uniqueVertices.count(vertex) == 0)
 				{
 					uniqueVertices[vertex] = static_cast<uint32_t>(vertices.size());

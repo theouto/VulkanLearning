@@ -34,6 +34,7 @@ namespace lve {
         LveDescriptorSetLayout& operator=(const LveDescriptorSetLayout&) = delete;
 
         VkDescriptorSetLayout getDescriptorSetLayout() const { return descriptorSetLayout; }
+        void createLayoutTextures();
 
     private:
         LveDevice& lveDevice;
